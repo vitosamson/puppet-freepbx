@@ -27,32 +27,26 @@ class freepbx::config {
   }
 
   # mysql:
-  include mysql::server
+  class {'::mysql::server':
+    root_password => '4vodiSU9',
+  }
 
-  mysql::rights{'Set rights for asterisk database':
-    ensure   => present,
-    database => 'asterisk',
+  mysql::db {'asterisk':
     user     => $freepbx::asterisk_db_user,
     password => $freepbx::asterisk_db_pass,
+    host     => 'localhost',
+    grant    => ['ALL'],
   }
 
-  mysql::rights{'Set rights for asteriskcdrdb database':
-    ensure   => present,
-    database => 'asteriskcdrdb',
+  mysql::db {'asteriskcdrdb':
     user     => $freepbx::asterisk_db_user,
     password => $freepbx::asterisk_db_pass,
+    host     => 'localhost',
+    grant    => ['ALL'],
   }
 
-  mysql::database{'asterisk':
-    ensure   => present
-  }
-
-  mysql::database{'asteriskcdrdb':
-    ensure   => present
-  }
-
-  $mysql_user     = $::mysql::server::base::mysql_user
-  $mysql_password = $::mysql::server::base::mysql_password
+  $mysql_user     = 'root'
+  $mysql_password = '4vodiSU9'
 
   # We could translate these SQL scripts into puppet receipt, but then this
   # module would be obsolete every new version of freepbx's SQL scripts
