@@ -4,6 +4,10 @@
 #
 class freepbx::install {
 
+  package {'git':
+    ensure => latest,
+  }
+
   package { ['asterisk','asterisk-moh-opsound-gsm',
     'libapache2-mod-php5',
     'php5',
