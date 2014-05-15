@@ -51,6 +51,7 @@ class freepbx::config {
     cwd         => $freepbx::asterisk_git_repo_dir,
     environment => "MYSQL_PWD=${mysql_password}",
     unless      => "mysql --user=${mysql_user} asterisk -e \"SELECT * FROM dahdichandids LIMIT 1;\"",
+    require     => Mysql::Db['asterisk'],
   }
 
   exec { 'mysql cdr_nmysql_table.sql':
@@ -58,6 +59,7 @@ class freepbx::config {
     cwd         => $freepbx::asterisk_git_repo_dir,
     environment => "MYSQL_PWD=${mysql_password}",
     unless      => "mysql --user=${mysql_user} asteriskcdrdb -e \"SELECT * FROM cdr LIMIT 1;\"",
+    require     => Mysql::Db['asteriskcdrdb'],
   }
 
 
