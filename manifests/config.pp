@@ -34,15 +34,11 @@ class freepbx::config {
   mysql::db {'asterisk':
     user     => $freepbx::asterisk_db_user,
     password => $freepbx::asterisk_db_pass,
-    host     => 'localhost',
-    grant    => ['ALL'],
   }
 
   mysql::db {'asteriskcdrdb':
     user     => $freepbx::asterisk_db_user,
     password => $freepbx::asterisk_db_pass,
-    host     => 'localhost',
-    grant    => ['ALL'],
   }
 
   $mysql_user     = 'root'
