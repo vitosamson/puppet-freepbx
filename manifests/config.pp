@@ -70,20 +70,21 @@ class freepbx::config {
   exec { "${freepbx::asterisk_git_repo_dir}/start_asterisk start":
     cwd    => $freepbx::asterisk_git_repo_dir,
     unless => 'pgrep asterisk'
-  }
+  } ->
 
   exec { "${freepbx::asterisk_git_repo_dir}/install_amp --username=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} --webroot ${freepbx::vhost_docroot}":
     cwd     => $freepbx::asterisk_git_repo_dir,
     creates => '/usr/local/sbin/amportal',
-  }
+  } ->
+
+  # exec 'amportal a ma installall' needs _cache dir but doesn't create it...
+  file { "${freepbx::vhost_docroot}/admin/modules/_cache/":
+    ensure => directory,
+  } ->
 
   exec { '/usr/local/sbin/amportal a ma installall':
     creates => "${freepbx::vhost_docroot}/admin/modules/weakpasswords/i18n/weakpasswords.pot"
   }
 
-  # exec 'amportal a ma installall' needs _cache dir but doesn't create it...
-  file { "${freepbx::vhost_docroot}/admin/modules/_cache/":
-    ensure => directory,
-  }
 
 }
