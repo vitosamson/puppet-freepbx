@@ -74,6 +74,10 @@ class freepbx::config {
     ensure => directory,
   } ->
 
+  file { "/etc/amportal.conf":
+    content => template('freepbx/amportal.conf.erb'),
+  } ->
+
   exec { "${freepbx::asterisk_git_repo_dir}/install_amp --username=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} --webroot ${freepbx::vhost_docroot}":
     cwd     => $freepbx::asterisk_git_repo_dir,
     creates => '/usr/local/sbin/amportal',
