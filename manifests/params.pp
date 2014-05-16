@@ -10,5 +10,5 @@ class freepbx::params {
   $asterisk_group        = 'asterisk'
   $asterisk_db_user      = 'asteriskuser'
   $asterisk_git_repo_dir = "/usr/src/freepbx-${version}"
-  $vhost_docroot         = '/var/www'
+  $vhost_docroot         = '/var/www/html'
 }

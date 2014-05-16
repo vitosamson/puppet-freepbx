@@ -4,6 +4,30 @@
 #
 class freepbx::install {
 
+  # download the necessary repos
+  file {'/etc/yum.repos.d/centos-asterisk-11.repo':
+    ensure => present,
+    owner  => root,
+    source => "puppet:///modules/freepbx/centos-asterisk-11.repo",
+  }
+  file {'/etc/yum.repos.d/centos-asterisk.repo':
+    ensure => present,
+    owner  => root,
+    source => "puppet:///modules/freepbx/centos-asterisk.repo",
+  }
+  file {'/etc/yum.repos.d/centos-digium-11.repo':
+    ensure => present,
+    owner  => root,
+    source => "puppet:///modules/freepbx/centos-digium-11.repo",
+  }
+  file {'/etc/yum.repos.d/centos-digium.repo':
+    ensure => present,
+    owner  => root,
+    source => "puppet:///modules/freepbx/centos-digium.repo",
+  }
+
+  include yum::repo::epel
+
   package {'git':
     ensure => latest,
   }
@@ -14,17 +38,18 @@ class freepbx::install {
   }
 
   $packages = [ 'asterisk',
-                'asterisk-moh-opsound-gsm',
-                'php5',
-                'php5-mysql',
-                'php5-gd',
-                'php-db'
+                'php',
+                'php-mysql',
+                'php-gd',
+                'php-pear',
+                'php-mysql',
+                'php-mbstring'
               ]
 
   package { $packages:
     ensure => $freepbx::package_ensure,
   }
-  
+
   apache::mod {'php5': }
 
   vcsrepo { $freepbx::asterisk_git_repo_dir:

@@ -27,8 +27,12 @@ class freepbx::config {
   }
 
   # mysql:
+
+  $mysql_user     = 'root'
+  $mysql_password = 'Sf4hc9TFXcsh4DBd'
+
   class {'::mysql::server':
-    root_password => '4vodiSU9',
+    root_password => $mysql_password,
   }
 
   mysql::db {'asterisk':
@@ -40,9 +44,6 @@ class freepbx::config {
     user     => $freepbx::asterisk_db_user,
     password => $freepbx::asterisk_db_pass,
   }
-
-  $mysql_user     = 'root'
-  $mysql_password = '4vodiSU9'
 
   # We could translate these SQL scripts into puppet receipt, but then this
   # module would be obsolete every new version of freepbx's SQL scripts

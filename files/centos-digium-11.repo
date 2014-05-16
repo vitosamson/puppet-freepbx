@@ -1,0 +1,6 @@
+[digium-11]
+name=CentOS-$releasever - Digium 11
+baseurl=http://packages.digium.com/centos/$releasever/digium-11/$basearch/
+enabled=1
+gpgcheck=0
+#gpgkey=http://packages.digium.com/RPM-GPG-KEY-Digium
