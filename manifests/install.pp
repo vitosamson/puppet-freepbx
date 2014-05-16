@@ -15,7 +15,6 @@ class freepbx::install {
 
   $packages = [ 'asterisk',
                 'asterisk-moh-opsound-gsm',
-                'libapache2-mod-php5',
                 'php5',
                 'php5-mysql',
                 'php5-gd',
@@ -25,6 +24,8 @@ class freepbx::install {
   package { $packages:
     ensure => $freepbx::package_ensure,
   }
+  
+  apache::mod {'php5': }
 
   vcsrepo { $freepbx::asterisk_git_repo_dir:
     ensure   => $freepbx::package_ensure,
