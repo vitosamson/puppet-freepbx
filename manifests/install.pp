@@ -43,7 +43,6 @@ class freepbx::install {
                 'php-pear',
                 'php-pear-DB',
                 'php-mysql',
-                'php-mbstring',
                 'php-posix'
               ]
 
