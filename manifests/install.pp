@@ -26,8 +26,6 @@ class freepbx::install {
     ensure => $freepbx::package_ensure,
   }
 
-  apache::mod{ 'php5': }
-
   vcsrepo { $freepbx::asterisk_git_repo_dir:
     ensure   => $freepbx::package_ensure,
     provider => git,
