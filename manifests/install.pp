@@ -53,7 +53,8 @@ class freepbx::install {
     require => File['/etc/yum.repos.d/centos-digium.repo']
   }
 
-  apache::mod {'php5': }
+  include apache::mod::php
+  include apache::mod::prefork
 
   vcsrepo { $freepbx::asterisk_git_repo_dir:
     ensure   => $freepbx::package_ensure,
