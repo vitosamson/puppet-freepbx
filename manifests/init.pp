@@ -79,7 +79,7 @@ class freepbx (
   validate_absolute_path($vhost_docroot)
 
   class { 'freepbx::install': } ->
-  class { 'freepbx::config': } ~>
+  class { 'freepbx::config': } ->
   class { 'freepbx::service': } ->
   Class ['freepbx']
 }
