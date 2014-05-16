@@ -9,17 +9,17 @@ class freepbx::install {
     ensure => present,
     owner  => root,
     source => "puppet:///modules/freepbx/centos-asterisk-11.repo",
-  }
+  } ->
   file {'/etc/yum.repos.d/centos-asterisk.repo':
     ensure => present,
     owner  => root,
     source => "puppet:///modules/freepbx/centos-asterisk.repo",
-  }
+  } ->
   file {'/etc/yum.repos.d/centos-digium-11.repo':
     ensure => present,
     owner  => root,
     source => "puppet:///modules/freepbx/centos-digium-11.repo",
-  }
+  } ->
   file {'/etc/yum.repos.d/centos-digium.repo':
     ensure => present,
     owner  => root,
@@ -47,6 +47,7 @@ class freepbx::install {
 
   package { $packages:
     ensure => $freepbx::package_ensure,
+    require => File['/etc/yum.repos.d/centos-digium.repo']
   }
 
   apache::mod {'php5': }
