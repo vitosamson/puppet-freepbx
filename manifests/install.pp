@@ -39,7 +39,6 @@ class freepbx::install {
 
   $packages = [ 'asterisk',
                 'php',
-                'php-mysql',
                 'php-gd',
                 'php-pear',
                 'php-mysql',
