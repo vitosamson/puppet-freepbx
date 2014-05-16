@@ -20,10 +20,10 @@ class freepbx::config {
     docroot => $freepbx::vhost_docroot,
   }
 
-  augeas{'freepbx PHP setting':
-    lens    => 'PHP.lns',
-    incl    => '/etc/php5/apache2/php.ini',
-    changes => 'set PHP/upload_max_filesize 120M',
+  file {'/etc/php.ini':
+    ensure => present,
+    owner  => root,
+    source => "puppet:///modules/freepbx/php.ini",
   }
 
   # mysql:
