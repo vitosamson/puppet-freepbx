@@ -43,7 +43,9 @@ class freepbx::install {
                 'php-pear',
                 'php-pear-DB',
                 'php-mysql',
-                'php-posix'
+                'php-posix',
+                'php-ldap',
+                'fail2ban'
               ]
 
   package { $packages:
