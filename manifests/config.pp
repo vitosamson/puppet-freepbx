@@ -26,12 +26,6 @@ class freepbx::config {
     source => "puppet:///modules/freepbx/php.ini",
   }
 
-  file {'/etc/fail2ban':
-    ensure  => directory,
-    recurse => true,
-    source  => "puppet:///modules/freepbx/fail2ban",
-  }
-
   # mysql:
 
   $mysql_user     = 'root'
