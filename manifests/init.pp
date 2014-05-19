@@ -71,7 +71,7 @@ class freepbx (
   $asterisk_git_repo_dir = $freepbx::params::asterisk_git_repo_dir,
   $vhost_name            = $freepbx::params::vhost_name,
   $vhost_docroot         = $freepbx::params::vhost_docroot,
-  $asterisk_amp_user     = undef
+  $asterisk_amp_user     = undef,
   $asterisk_amp_pass     = undef,
 ) inherits freepbx::params {
 
