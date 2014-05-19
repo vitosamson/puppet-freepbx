@@ -80,6 +80,8 @@ class { 'freepbx':
   version          => '2.11',
   vhost_name       => 'freepbx.example.com',
   asterisk_db_pass => 'changemeasIamaweakpassword',
+  asterisk_amp_user => 'admin',
+  asterisk_amp_pass => 'amp111',
 }
 ```
 
