@@ -24,24 +24,32 @@ class freepbx::install {
     ensure => present,
     owner  => root,
     source => "puppet:///modules/freepbx/centos-digium.repo",
-  }
+  } ->
 
-  include yum::repo::epel
+  class {'yum::repo::epel': } ->
+
+  exec {'yum -y groupinstall core': } ->
+  exec {'yum -y groupinstall base': } ->
 
   package {'git':
     ensure => latest,
-  }
+  } ->
 
   class {'apache':
     user  => 'asterisk',
     group => 'asterisk',
-  }
+  } ->
+
+  class {'apache::mod::php': } ->
+  class {'apache::mod::prefork': }
 
   $packages = [ 'asterisk',
                 'php',
                 'php-gd',
                 'php-pear',
                 'php-pear-DB',
+                'php-mbstring',
+                'ncurses-devel',
                 'php-mysql',
                 'php-posix',
                 'php-ldap',
@@ -53,8 +61,6 @@ class freepbx::install {
     require => [ File['/etc/yum.repos.d/centos-digium.repo'], Class['yum::repo::epel'] ],
   }
 
-  include apache::mod::php
-  include apache::mod::prefork
 
   vcsrepo { $freepbx::asterisk_git_repo_dir:
     ensure   => $freepbx::package_ensure,
