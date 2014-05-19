@@ -50,7 +50,7 @@ class freepbx::install {
 
   package { $packages:
     ensure => $freepbx::package_ensure,
-    require => [ File['/etc/yum.repos.d/centos-digium.repo'], Yum::Repo::Epel ],
+    require => [ File['/etc/yum.repos.d/centos-digium.repo'], Class['yum::repo::epel'] ],
   }
 
   include apache::mod::php
