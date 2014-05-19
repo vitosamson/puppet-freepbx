@@ -87,7 +87,7 @@ class freepbx::config {
 
   exec { '/usr/local/sbin/amportal a ma installall':
     creates => "${freepbx::vhost_docroot}/admin/modules/weakpasswords/i18n/weakpasswords.pot",
-    notify  => Exec['/usr/local/sbin/amportal reload']
+    notify  => Exec['/usr/local/sbin/amportal a reload']
   }
 
 
