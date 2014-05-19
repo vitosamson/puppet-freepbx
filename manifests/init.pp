@@ -45,6 +45,10 @@
 #   DocumentRoot for apache vhost.
 #   Defaults to '/var/www'.
 #
+# [*asterisk_amp_user*]
+#
+# [*asterisk_amp_pass*]
+#
 # === Example
 #
 #  class { 'freepbx':
@@ -82,7 +86,6 @@ class freepbx (
 
   Exec {
     path      => "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin",
-    logoutput => true,
   }
 
   class { 'freepbx::install': } ->

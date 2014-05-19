@@ -4,36 +4,10 @@
 #
 class freepbx::install {
 
-  # download the necessary repos
-  file {'/etc/yum.repos.d/centos-asterisk-11.repo':
-    ensure => present,
-    owner  => root,
-    source => "puppet:///modules/freepbx/centos-asterisk-11.repo",
-  } ->
-  file {'/etc/yum.repos.d/centos-asterisk.repo':
-    ensure => present,
-    owner  => root,
-    source => "puppet:///modules/freepbx/centos-asterisk.repo",
-  } ->
-  file {'/etc/yum.repos.d/centos-digium-11.repo':
-    ensure => present,
-    owner  => root,
-    source => "puppet:///modules/freepbx/centos-digium-11.repo",
-  } ->
-  file {'/etc/yum.repos.d/centos-digium.repo':
-    ensure => present,
-    owner  => root,
-    source => "puppet:///modules/freepbx/centos-digium.repo",
-  } ->
+  include freepbx::repos
 
-  class {'yum::repo::epel': } ->
-
-  exec {'yum -y groupinstall core': } ->
-  exec {'yum -y groupinstall base': } ->
-
-  package {'git':
-    ensure => latest,
-  } ->
+  exec {'yum -y groupinstall core': }
+  exec {'yum -y groupinstall base': }
 
   class {'apache':
     user  => 'asterisk',
@@ -61,11 +35,16 @@ class freepbx::install {
     require => [ File['/etc/yum.repos.d/centos-digium.repo'], Class['yum::repo::epel'] ],
   }
 
+  package {'git':
+    ensure => latest,
+  }
+
   vcsrepo { $freepbx::asterisk_git_repo_dir:
     ensure   => $freepbx::package_ensure,
     provider => git,
     source   => 'http://git.freepbx.org/scm/freepbx/framework.git',
     revision => "release/${freepbx::version}",
+    require  => Package['git'],
   }
 
   file {'/var/lib/asterisk/agi-bin':

@@ -11,6 +11,8 @@ class freepbx::config {
     group   => $freepbx::asterisk_group,
   }
 
+  # apache:
+
   file { $freepbx::vhost_docroot:
     ensure  => directory,
   }
@@ -28,11 +30,8 @@ class freepbx::config {
 
   # mysql:
 
-  $mysql_user     = 'root'
-  $mysql_password = 'Sf4hc9TFXcsh4DBd'
-
   class {'::mysql::server':
-    root_password => $mysql_password,
+    root_password => $freepbx::mysql_root_password,
   }
 
   mysql::db {'asterisk':
