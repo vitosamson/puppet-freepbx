@@ -84,6 +84,14 @@ class freepbx::config {
     ensure => directory,
   } ->
 
+  file { "/etc/asterisk/manager_additional.conf":
+    ensure => present
+  } ->
+
+  file { "/etc/asterisk/manager_custom.conf":
+    ensure => present
+  } ->
+
   exec { '/usr/local/sbin/amportal a ma installall':
     creates => "${freepbx::vhost_docroot}/admin/modules/weakpasswords/i18n/weakpasswords.pot",
     notify  => Exec['/usr/local/sbin/amportal a reload']
