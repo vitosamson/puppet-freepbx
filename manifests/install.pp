@@ -40,8 +40,8 @@ class freepbx::install {
     group => 'asterisk',
   } ->
 
-  class {'apache::mod::php': } ->
-  class {'apache::mod::prefork': }
+  class {'apache::mod::php': } 
+  #class {'apache::mod::prefork': }
 
   $packages = [ 'asterisk',
                 'php',
