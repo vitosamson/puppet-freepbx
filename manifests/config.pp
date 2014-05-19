@@ -48,18 +48,18 @@ class freepbx::config {
   # We could translate these SQL scripts into puppet receipt, but then this
   # module would be obsolete every new version of freepbx's SQL scripts
   exec { 'mysql newinstall.sql':
-    command     => "mysql --user=${mysql_user} --database=asterisk < ${freepbx::asterisk_git_repo_dir}/SQL/newinstall.sql",
+    command     => "mysql --user=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} --database=asterisk < ${freepbx::asterisk_git_repo_dir}/SQL/newinstall.sql",
     cwd         => $freepbx::asterisk_git_repo_dir,
-    environment => "MYSQL_PWD=${mysql_password}",
-    unless      => "mysql --user=${mysql_user} asterisk -e \"SELECT * FROM dahdichandids LIMIT 1;\"",
+    environment => "MYSQL_PWD=${freepbx::asterisk_db_pass}",
+    unless      => "mysql --user=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} asterisk -e \"SELECT * FROM dahdichandids LIMIT 1;\"",
     require     => Mysql::Db['asterisk'],
   } ->
 
   exec { 'mysql cdr_nmysql_table.sql':
-    command     => "mysql --user=${mysql_user} --database=asteriskcdrdb  < ${freepbx::asterisk_git_repo_dir}/SQL/cdr_mysql_table.sql",
+    command     => "mysql --user=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} --database=asteriskcdrdb  < ${freepbx::asterisk_git_repo_dir}/SQL/cdr_mysql_table.sql",
     cwd         => $freepbx::asterisk_git_repo_dir,
-    environment => "MYSQL_PWD=${mysql_password}",
-    unless      => "mysql --user=${mysql_user} asteriskcdrdb -e \"SELECT * FROM cdr LIMIT 1;\"",
+    environment => "MYSQL_PWD=${freepbx::asterisk_db_pass}",
+    unless      => "mysql --user=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} asteriskcdrdb -e \"SELECT * FROM cdr LIMIT 1;\"",
     require     => Mysql::Db['asteriskcdrdb'],
   } ->
 
@@ -68,14 +68,13 @@ class freepbx::config {
   ## start asterisk
   exec { "${freepbx::asterisk_git_repo_dir}/start_asterisk start":
     cwd    => $freepbx::asterisk_git_repo_dir,
-    unless => 'pgrep asterisk'
   } ->
 
   file { "/etc/asterisk/manager.d":
     ensure => directory,
   } ->
 
-  exec { "${freepbx::asterisk_git_repo_dir}/install_amp --username=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} --webroot ${freepbx::vhost_docroot} --asteriskuser=${freepbx::asterisk_amp_user} --asteriskpass=${freepbx::asterisk_amp_pass} --freepbxip=${::ipaddress} --scripted":
+  exec { "${freepbx::asterisk_git_repo_dir}/install_amp --username=${freepbx::asterisk_db_user} --password=${freepbx::asterisk_db_pass} --webroot ${freepbx::vhost_docroot} --asteriskuser=${freepbx::asterisk_amp_user} --asteriskpass=${freepbx::asterisk_amp_pass} --freepbxip=${::ipaddress} --scripted --dbhost=localhost":
     cwd     => $freepbx::asterisk_git_repo_dir,
     creates => '/usr/local/sbin/amportal',
   } ->
