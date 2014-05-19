@@ -7,7 +7,6 @@
 class freepbx::service {
 
   exec { '/usr/local/sbin/amportal reload':
-    path        => ['/usr/local/sbin', '/var/lib/asterisk/bin'],
     cwd         => '/var/lib/asterisk/bin',
     refreshonly => true,
   }
