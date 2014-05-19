@@ -80,7 +80,10 @@ class freepbx (
   validate_string($asterisk_db_pass)
   validate_absolute_path($vhost_docroot)
 
-  Exec { path => "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin" }
+  Exec {
+    path      => "/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin",
+    logoutput => true,
+  }
 
   class { 'freepbx::install': } ->
   class { 'freepbx::config': } ->
