@@ -7,19 +7,21 @@ After the first run, you should finish freepbx install by going on http://nodena
 Compatibility
 =============
 
-This module has been tested on debian 7 (wheezy)
+This module has been tested on CentOS 6.5 x64
 
 Requires
 ========
 
-- This module uses exec for mysql initialisation. an Exec path should be set. 
-- Requires [camptocamp puppet-mysql module](https://github.com/camptocamp/puppet-mysql)
-
+* Puppetlabs Apache <https://forge.puppetlabs.com/puppetlabs/apache>
+* Puppetlabs Concat <https://forge.puppetlabs.com/puppetlabs/concat>
+* Puppetlabs MySQL <https://forge.puppetlabs.com/puppetlabs/mysql>
+* Example42 Yum <https://forge.puppetlabs.com/example42/yum>
+* Puppetlabs vcsrepo <https://forge.puppetlabs.com/puppetlabs/vcsrepo>
 
 About
 =====
 
-Work inspired by [Debian install page on Freepbx wiki](http://wiki.freepbx.org/display/HTGS/Installing+FreePBX+on+Debian+Wheezy)
+Work inspired by camptocamp's puppet-freepbx module and the [FreePBX Wiki](http://wiki.freepbx.org/display/HTGS/Installing+FreePBX+2.11+on+Centos+6.3#InstallingFreePBX2.11onCentos6.3-InstallandConfigureFreePBX)
 
 Parameters
 ==========
@@ -66,19 +68,27 @@ Parameters
   DocumentRoot for apache vhost.
   Defaults to '/var/www'.
 
+* [*asterisk_amp_username*]
+
+* [*asterisk_amp_pass*]
+
 Example
 =======
 
- class { 'freepbx':
-   version          => '2.11',
-   vhost\_name       => 'freepbx.example.com',
-   asterisk\_db\_pass => 'changemeasIamaweakpassword',
- }
+```puppet
+class { 'freepbx':
+  version          => '2.11',
+  vhost_name       => 'freepbx.example.com',
+  asterisk_db_pass => 'changemeasIamaweakpassword',
+}
+```
 
 Authors
 =======
 
-Simon Séhier <simon.sehier@camptocamp.com>
+Vito LaVilla <vslavilla@gmail.com>
+
+Forked from Simon Séhier <simon.sehier@camptocamp.com>
 
 Copyright
 =========
