@@ -12,6 +12,11 @@ class freepbx::service {
     refreshonly => true,
   }
 
+  service {'fail2ban':
+    ensure    => running,
+    subscribe => File['/etc/fail2ban'],
+  }
+
 }
 
 

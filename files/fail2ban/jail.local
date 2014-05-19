@@ -1,0 +1,55 @@
+# Fail2Ban configuration file
+#
+# This file is Generated from your sysadmin module on your PBX
+# DO NOT HAND EDIT THIS FILE
+
+[DEFAULT]
+ignoreip = 127.0.0.1
+bantime  = 1800
+findtime  = 600
+maxretry = 5
+backend = auto
+
+[asterisk-iptables]
+enabled  = true
+filter   = asterisk
+action   = iptables-allports[name=SIP, protocol=all]
+           sendmail-whois[name=SIP, dest=none@yourpbx.com, sender=none@yourpbx.com]
+logpath  = /var/log/asterisk/fail2ban
+maxretry = 5
+bantime = 1800
+
+[ssh-iptables]
+enabled  = true
+filter   = sshd
+action   = iptables[name=SSH, port=ssh, protocol=tcp]
+           sendmail-whois[name=SSH, dest=none@yourpbx.com, sender=none@yourpbx.com]
+logpath  = /var/log/secure
+maxretry = 3
+
+[apache-tcpwrapper]
+enabled  = true
+filter   = apache-auth
+action   = iptables-allports[name=PBX-GUI, port=http, protocol=tcp]
+           sendmail-whois[name=PBX-GUI, dest=none@yourpbx.com, sender=none@yourpbx.com]
+logpath  = /var/log/httpd/error_log
+maxretry = 3
+
+
+[vsftpd-iptables]
+enabled  = true
+filter   = vsftpd
+action   = iptables[name=FTP, port=ftp, protocol=tcp]
+           sendmail-whois[name=FTP, dest=none@yourpbx.com, sender=none@yourpbx.com]
+logpath  = /var/log/vsftpd.log
+maxretry = 3
+bantime  = 1800
+
+[apache-badbots]
+enabled  = true
+filter   = apache-badbots
+action   = iptables-multiport[name=BadBots, port="http,https"]
+           sendmail-whois[name=PBX GUI, dest=none@yourpbx.com, sender=none@yourpbx.com]
+logpath  = /var/log/httpd/*access_log
+bantime  = 1800
+maxretry = 1

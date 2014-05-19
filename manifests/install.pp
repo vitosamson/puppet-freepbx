@@ -24,7 +24,7 @@ class freepbx::install {
     ensure => present,
     owner  => root,
     source => "puppet:///modules/freepbx/centos-digium.repo",
-  }
+  } ->
 
   include yum::repo::epel
 
