@@ -14,7 +14,6 @@ class freepbx::service {
 
   service {'fail2ban':
     ensure    => running,
-    subscribe => File['/etc/fail2ban'],
   }
 
 }
