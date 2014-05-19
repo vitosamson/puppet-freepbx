@@ -61,12 +61,15 @@ class freepbx::install {
     require => [ File['/etc/yum.repos.d/centos-digium.repo'], Class['yum::repo::epel'] ],
   }
 
-
   vcsrepo { $freepbx::asterisk_git_repo_dir:
     ensure   => $freepbx::package_ensure,
     provider => git,
     source   => 'http://git.freepbx.org/scm/freepbx/framework.git',
     revision => "release/${freepbx::version}",
+  }
+
+  file {'/var/lib/asterisk/agi-bin':
+    ensure => directory,
   }
 
 }
