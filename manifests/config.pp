@@ -89,7 +89,8 @@ class freepbx::config {
   } ->
 
   file { "/etc/asterisk/manager_custom.conf":
-    ensure => present
+    ensure => present,
+    notify => Service['asterisk']
   } ->
 
   exec { '/usr/local/sbin/amportal a ma installall':

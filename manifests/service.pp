@@ -15,6 +15,10 @@ class freepbx::service {
     ensure    => running,
   }
 
+  service {'asterisk':
+    ensure => running,
+  }
+
 }
 
 
