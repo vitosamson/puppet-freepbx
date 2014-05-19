@@ -24,7 +24,7 @@ class freepbx::install {
     ensure => present,
     owner  => root,
     source => "puppet:///modules/freepbx/centos-digium.repo",
-  } ->
+  }
 
   include yum::repo::epel
 
@@ -50,7 +50,7 @@ class freepbx::install {
 
   package { $packages:
     ensure => $freepbx::package_ensure,
-    require => File['/etc/yum.repos.d/centos-digium.repo']
+    require => [ File['/etc/yum.repos.d/centos-digium.repo'], Yum::Repo::Epel ],
   }
 
   include apache::mod::php
