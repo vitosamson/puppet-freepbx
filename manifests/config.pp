@@ -11,6 +11,24 @@ class freepbx::config {
     group   => $freepbx::asterisk_group,
   }
 
+  # fail2ban:
+
+  file {'/etc/fail2ban/jail.conf':
+    ensure  => present,
+    source  => "puppet:///modules/freepbx/fail2ban/jail.conf",
+    owner   => "root",
+    require => Package['fail2ban'],
+    notify  => Service['fail2ban']
+  }
+
+  file {'/etc/fail2ban/filter.d/asterisk.conf':
+    ensure  => present,
+    source  => "puppet:///modules/freepbx/fail2ban/asterisk.conf",
+    owner   => "root",
+    require => Package['fail2ban'],
+    notify  => Service['fail2ban'],
+  }
+
   # apache:
 
   file { $freepbx::vhost_docroot:
