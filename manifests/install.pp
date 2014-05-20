@@ -18,6 +18,9 @@ class freepbx::install {
   include 'apache::mod::prefork'
 
   $packages = [ 'asterisk',
+                'asterisk-sounds-core-en',
+                'asterisk-sounds-core-en-ulaw',
+                'asterisk-sounds-extra-en-ulaw',
                 'php',
                 'php-gd',
                 'php-pear',
