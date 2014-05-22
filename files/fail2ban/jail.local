@@ -1,0 +1,34 @@
+bantime  = 600
+findtime  = 600
+maxretry = 3
+
+[ssh-iptables]
+
+enabled  = true
+filter   = sshd
+action   = iptables[name=SSH, port=ssh, protocol=tcp]
+           sendmail-whois[name=SSH, dest=root, sender=fail2ban@example.com, sendername="Fail2Ban"]
+logpath  = /var/log/secure
+maxretry = 5
+
+
+[apache-badbots]
+
+enabled  = true
+filter   = apache-badbots
+action   = iptables-multiport[name=BadBots, port="http,https"]
+           sendmail-buffered[name=BadBots, lines=5, dest=you@example.com]
+logpath  = /var/log/httpd/*access_log
+bantime  = 172800
+maxretry = 1
+
+
+[asterisk]
+
+enabled  = true
+filter   = asterisk
+action   = iptables-multiport[name=asterisk-tcp, port="5060,5061", protocol=tcp]
+           iptables-multiport[name=asterisk-udp, port="5060,5061", protocol=udp]
+           sendmail-whois[name=Asterisk, dest=admin@metronetsys.net, sender=fail2ban@metronetsys.net]
+logpath  = /var/log/asterisk/full
+maxretry = 5

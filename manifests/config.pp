@@ -13,9 +13,9 @@ class freepbx::config {
 
   # fail2ban:
 
-  file {'/etc/fail2ban/jail.conf':
+  file {'/etc/fail2ban/jail.local':
     ensure  => present,
-    source  => "puppet:///modules/freepbx/fail2ban/jail.conf",
+    source  => "puppet:///modules/freepbx/fail2ban/jail.local",
     owner   => "root",
     require => Package['fail2ban'],
     notify  => Service['fail2ban']
