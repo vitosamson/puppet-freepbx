@@ -39,7 +39,7 @@ class freepbx::install {
   }
 
   package {'git':
-    ensure => latest,
+    ensure => installed,
   }
 
   vcsrepo { $freepbx::asterisk_git_repo_dir:
