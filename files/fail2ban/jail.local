@@ -32,7 +32,7 @@ filter   = asterisk
 action   = iptables-multiport[name=asterisk-tcp, port="5060,5061", protocol=tcp]
            iptables-multiport[name=asterisk-udp, port="5060,5061", protocol=udp]
            sendmail-whois[name=Asterisk, dest=admin@metronetsys.net, sender=fail2ban@metronetsys.net]
-logpath  = /var/log/asterisk/full
+logpath  = /var/log/asterisk/*
 maxretry = 5
 
 
