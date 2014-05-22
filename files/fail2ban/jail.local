@@ -1,6 +1,8 @@
-bantime  = 600
+[DEFAULT]
+bantime  = 1800
 findtime  = 600
 maxretry = 3
+
 
 [ssh-iptables]
 
@@ -32,3 +34,12 @@ action   = iptables-multiport[name=asterisk-tcp, port="5060,5061", protocol=tcp]
            sendmail-whois[name=Asterisk, dest=admin@metronetsys.net, sender=fail2ban@metronetsys.net]
 logpath  = /var/log/asterisk/full
 maxretry = 5
+
+
+[apache-tcpwrapper]
+enabled  = true
+filter   = apache-auth
+action   = iptables-allports[name=PBX-GUI, port=http, protocol=tcp]
+           sendmail-whois[name=PBX-GUI, dest=none@yourpbx.com, sender=none@yourpbx.com]
+logpath  = /var/log/httpd/error_log
+maxretry = 3
