@@ -6,8 +6,10 @@ class freepbx::install {
 
   include freepbx::repos
 
-  exec {'yum -y groupinstall core': }
-  exec {'yum -y groupinstall base': }
+  #exec {'yum -y groupinstall core': }
+  exec {'yum -y groupinstall base':
+    unless => 'yum grouplist base | grep "Installed Groups"',
+  }
 
   class {'apache':
     user  => 'asterisk',
