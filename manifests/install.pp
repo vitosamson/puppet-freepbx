@@ -30,7 +30,10 @@ class freepbx::install {
                 'php-mbstring',
                 'ncurses-devel',
                 'php-mysql',
-                'php-posix',
+                'php-process',
+                'libxml2-devel',
+                'libtiff-devel',
+                'audiofile-devel',
                 'php-ldap',
                 'fail2ban'
               ]
