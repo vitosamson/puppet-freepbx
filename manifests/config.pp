@@ -11,6 +11,13 @@ class freepbx::config {
     group   => $freepbx::asterisk_group,
   }
 
+  # iptables:
+
+  iptables::rule {'http':
+    source => $freepbx::http_allowed_sources,
+    port   => '80',
+  }
+
   # fail2ban:
 
   file {'/etc/fail2ban/jail.local':

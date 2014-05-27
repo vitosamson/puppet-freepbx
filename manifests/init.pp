@@ -77,6 +77,7 @@ class freepbx (
   $vhost_docroot         = $freepbx::params::vhost_docroot,
   $asterisk_amp_user     = undef,
   $asterisk_amp_pass     = undef,
+  $http_allowed_sources  = '0/0',
 ) inherits freepbx::params {
 
   validate_re($version, ['2.11','2.10','12.0'])
