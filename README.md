@@ -72,6 +72,11 @@ Parameters
 
 * [*asterisk_amp_pass*]
 
+* [*http_allowed_sources*]
+
+  Comma-delimited list of IPs that should be allowed to access the web interface
+  e.g. 107.12.185.2,54.98.201.71
+
 Example
 =======
 
