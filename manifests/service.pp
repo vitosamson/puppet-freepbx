@@ -12,7 +12,8 @@ class freepbx::service {
   }
 
   service {'fail2ban':
-    ensure    => running,
+    ensure  => running,
+    require => Service['httpd'],
   }
 
   service {'asterisk':
