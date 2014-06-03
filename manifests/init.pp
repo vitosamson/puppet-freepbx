@@ -78,6 +78,8 @@ class freepbx (
   $asterisk_amp_user     = undef,
   $asterisk_amp_pass     = undef,
   $http_allowed_sources  = '0/0',
+  $sip_allowed_sources   = '0/0',
+  $sip_protocol          = 'udp',
 ) inherits freepbx::params {
 
   validate_re($version, ['2.11','2.10','12.0'])

@@ -18,6 +18,12 @@ class freepbx::config {
     port   => '80',
   }
 
+  iptables::rule {'sip':
+    port     => '5060',
+    protocol => $freepbx::sip_protocol,
+    source   => $freepbx::sip_allowed_sources,
+  }
+
   # fail2ban:
 
   file {'/etc/fail2ban/jail.local':
