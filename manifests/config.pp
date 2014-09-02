@@ -24,6 +24,13 @@ class freepbx::config {
     source   => $freepbx::sip_allowed_sources,
   }
 
+#RTP has the same sources and protocol as SIP
+  iptables::rule {'rtp':
+    source   => $freepbx::sip_allowed_sources,
+    protocol => $freepbx::sip_protocol,
+    port     => '10000-20000',
+  }
+
   # fail2ban:
 
   file {'/etc/fail2ban/jail.local':
