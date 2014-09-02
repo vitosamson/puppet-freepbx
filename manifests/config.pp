@@ -28,7 +28,7 @@ class freepbx::config {
   iptables::rule {'rtp':
     source   => $freepbx::sip_allowed_sources,
     protocol => $freepbx::sip_protocol,
-    port     => '10000-20000',
+    port     => '10000:20000',
   }
 
   # fail2ban:
